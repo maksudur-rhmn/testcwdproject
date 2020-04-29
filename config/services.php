@@ -35,6 +35,10 @@ return [
     'client_secret' => env('GITHUB_CLIENT_SECRET'),
     'redirect' => 'http://localhost:8000/register/github/callback',
    ],
+    'paypal' => [
+        'id' => env('PAYPAL_ID'),
+        'secret' => env('PAYPAL_SECRET'),
+    ],
 
 
 ];

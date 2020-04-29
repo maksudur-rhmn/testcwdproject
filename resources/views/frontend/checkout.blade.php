@@ -29,7 +29,7 @@
                  <div class="col-lg-8">
                      <div class="checkout-form form-style">
                          <h3>Billing Details</h3>
-                         <form action="{{ route('checkout.post') }}" method="post">
+                         <form id="paypal_sub" action="{{ route('checkout.post') }}" method="post">
                            @csrf
                              <div class="row">
                                  <div class="col-12">
@@ -106,6 +106,8 @@
                                  <label for="delivery">Cash on Delivery</label>
                              </li>
                          </ul>
+                         input
+                         
                          <input type="hidden" name="sub_total" value="{{ $sub_total }}">
                          <input type="hidden" name="coupon_name" value="{{ $coupon_name }}">
                          <input type="hidden" name="total" value="{{ $total }}">
@@ -158,6 +160,20 @@
            });
 
         });
+
+        // Ajax Request 
     });
+
+
+    $(document).ready(function(){
+      $('#paypal').click(function(){
+        var form  = document.getElementById('paypal_sub')
+            form.action = "{{ route('create-payment') }}"
+            // form.method = 'POST'
+            console.log(form);
+      });
+      $("#delivery").unbind("click", process_click);
+      $("#card").unbind("click", process_click);
+   });
   </script>
 @endsection

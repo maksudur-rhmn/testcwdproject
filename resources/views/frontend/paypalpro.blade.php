@@ -86,11 +86,11 @@
     payment: function(data, actions) {
       return actions.payment.create({
         redirect_urls: {
-          return_url:"http://localhost:8000/executepayment"
+          return_url:"http://localhost:8000/execute-payment"
         },
         transactions: [{
           amount: {
-            total: "{{ $totals }}",
+            total: 34,
             currency: 'USD'
           }
         }]

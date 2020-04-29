@@ -57,11 +57,10 @@ class CheckoutController extends Controller
       {
         return view('frontend.online_payment');
       }
-      elseif($request->payment_status == 3)
-      {
-        $totals = $request->total;
-        return view('frontend.paypalpro', compact('totals'));
-      }
+      // elseif($request->payment_status == 3)
+      // {
+      //   return view('frontend.paypalpro');
+      // }
    }
 
    public function getcitylist(Request $request)

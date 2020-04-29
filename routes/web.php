@@ -148,4 +148,6 @@ Route::resource('blog', 'BlogController');
 // END BlogController
 
 
-Route::get('/executepayment', 'PaymentController@execute');
+Route::post('/create-payment', 'PaymentController@create')->name('create-payment');
+Route::get('/execute-payment', 'PaymentController@execute')->name('execute-payment');
+
