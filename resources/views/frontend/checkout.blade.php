@@ -4,6 +4,12 @@
   Checkout
 @endsection
 
+@section('top_script')
+<script
+src="https://www.paypal.com/sdk/js?client-id=AXLaIqYuXOd2KPJ2669lHnCgbBy4QZjtz9aenIaEfurmktJCMlxlokqNbM2_CKktH5P2pjI3AcBUrCwE"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
+</script>
+@endsection
+
 @section('content')
   <!-- .breadcumb-area start -->
      <div class="breadcumb-area bg-img-4 ptb-100">
@@ -106,12 +112,12 @@
                                  <label for="delivery">Cash on Delivery</label>
                              </li>
                          </ul>
-                         input
                          
                          <input type="hidden" name="sub_total" value="{{ $sub_total }}">
                          <input type="hidden" name="coupon_name" value="{{ $coupon_name }}">
                          <input type="hidden" name="total" value="{{ $total }}">
                          <button type="submit">Place Order</button>
+                         <div class="mt-5" id="paypal-button-container"></div>
                          </form>
                          {{-- <div class="flex-center position-ref full-height">
 
@@ -176,4 +182,43 @@
       $("#card").unbind("click", process_click);
    });
   </script>
+
+<script>
+    paypal.Buttons({
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            amount: {
+              value: {{ $total }}
+            }
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+  
+        // Authorize the transaction
+        actions.order.authorize().then(function(authorization) {
+  
+          // Get the authorization id
+          var authorizationID = authorization.purchase_units[0]
+            .payments.authorizations[0].id
+  
+          // Call your server to validate and capture the transaction
+          return redirect('/here', {
+            method: 'post',
+            headers: {
+              'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+              orderID: data.orderID,
+              authorizationID: authorizationID
+            })
+          });
+        });
+      }
+    }).render('#paypal-button-container');
+  </script>
 @endsection
+
+
+ 

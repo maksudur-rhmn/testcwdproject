@@ -27,7 +27,7 @@ class StripePaymentController extends Controller
      {
          Stripe\Stripe::setApiKey('sk_test_firDb2BrvwKsLBZBcsv70lWJ00e8vefitV');
          Stripe\Charge::create ([
-                 "amount" => 100 * 100,
+                 "amount" => 1000 * 100,
                  "currency" => "usd",
                  "source" => $request->stripeToken,
                  "description" => "Test payment from Seven."

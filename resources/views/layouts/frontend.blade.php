@@ -33,6 +33,7 @@
 <link rel="stylesheet" href="{{ asset('frontend_assets/css/responsive.css') }}">
 <!-- modernizr css -->
 <script src="{{ asset('frontend_assets/js/vendor/modernizr-2.8.3.min.js') }}"></script>
+@yield('top_script')
 </head>
 
 <body>
