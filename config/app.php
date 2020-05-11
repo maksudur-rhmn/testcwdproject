@@ -177,6 +177,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Nahid\Talk\TalkServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -232,6 +234,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Talk'      => Nahid\Talk\Facades\Talk::class,
         'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

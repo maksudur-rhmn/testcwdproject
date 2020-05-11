@@ -20,8 +20,31 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">Sale Records for last Seven Days</div>
+
+            <div class="card-body">
+             {!! $sevenDaysSaleChart->container() !!}
+             {!! $sevenDaysSaleChart->script() !!}
+            </div>
+        </div>
+    </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">Total Cash on delivery and Online Payment</div>
+
+                <div class="card-body">
+                 {!! $paymentMethodChart->container() !!}
+                 {!! $paymentMethodChart->script() !!}
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="row mt-5">
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">Total Users : {{ $total_users }}</div>
 

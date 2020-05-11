@@ -96,7 +96,17 @@
 
                         <div class="row">
                             <div class="col-xs-12">
-                                <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now ($100)</button>
+                                <input type="text" name="full_name" value="{{ $full_name }}">
+                                <input type="text" name="email_address" value="{{ $email_address }}">
+                                <input type="text" name="phone_number" value="{{ $phone_number }}">
+                                <input type="text" name="country_id" value="{{ $country_id }}">
+                                <input type="text" name="city_id" value="{{ $city_id }}">
+                                <input type="text" name="address" value="{{ $address }}">
+                                <input type="text" name="notes" value="{{ $notes }}">
+                                <input type="text" name="total" value="{{ $total }}">
+                                <input type="text" name="sub_total" value="{{ $sub_total }}">
+                                <input type="text" name="coupon_name" value="{{ $coupon_name }}">
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now ${{ $total }}</button>
                             </div>
                         </div>
 

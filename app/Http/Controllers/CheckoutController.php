@@ -55,7 +55,19 @@ class CheckoutController extends Controller
       }
       elseif($request->payment_status == 2)
       {
-        return view('frontend.online_payment');
+        
+        return view('frontend.online_payment', [
+         'total'            => $request->total,
+         'sub_total'        => $request->sub_total,
+         'coupon_name'      => $request->coupon_name,
+         'full_name'        => $request->full_name,
+         'email_address'    => $request->email_address,
+         'phone_number'     => $request->phone_number,
+         'country_id'       => $request->country_id,
+         'city_id'          => $request->city_id,
+         'address'          => $request->address,
+         'notes'            => $request->notes,
+        ]); 
       }
       
    }

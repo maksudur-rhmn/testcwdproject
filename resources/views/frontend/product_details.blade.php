@@ -55,12 +55,28 @@
                       <div class="rating-wrap fix">
                           <span class="pull-left">${{ $single_products->product_price }}</span>
                           <ul class="rating pull-right">
-                              <li><i class="fa fa-star"></i></li>
-                              <li><i class="fa fa-star"></i></li>
-                              <li><i class="fa fa-star"></i></li>
-                              <li><i class="fa fa-star"></i></li>
-                              <li><i class="fa fa-star"></i></li>
-                              <li>(05 Customar Review)</li>
+                              @if(average_stars($single_products->id) == 1)
+                                <li><i class="fa fa-star"></i></li>    
+                              @elseif(average_stars($single_products->id) == 2)
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                              @elseif(average_stars($single_products->id) == 3)
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                              @elseif(average_stars($single_products->id) == 4)
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                              @elseif(average_stars($single_products->id) == 5)
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                              @endif
+                              <li>({{ \App\Order_item::where('product_id', $single_products->id)->whereNotNull('review')->count() }} Customar Review)</li>
                           </ul>
                       </div>
                       <p>{{ $single_products->product_short_description }}</p>
@@ -170,59 +186,44 @@
                       <div class="tab-pane" id="review">
                           <div class="review-wrap">
                               <ul>
-                                  <li class="review-items">
-                                      <div class="review-img">
-                                          <img src="assets/images/comment/1.png" alt="">
-                                      </div>
-                                      <div class="review-content">
-                                          <h3><a href="#">GERALD BARNES</a></h3>
-                                          <span>27 Jun, 2019 at 2:30pm</span>
-                                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at estei to bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
-                                          <ul class="rating">
-                                              <li><i class="fa fa-star"></i></li>
-                                              <li><i class="fa fa-star"></i></li>
-                                              <li><i class="fa fa-star"></i></li>
-                                              <li><i class="fa fa-star"></i></li>
-                                              <li><i class="fa fa-star"></i></li>
-                                          </ul>
-                                      </div>
-                                  </li>
-                                  <li class="review-items">
-                                      <div class="review-img">
-                                          <img src="assets/images/comment/2.png" alt="">
-                                      </div>
-                                      <div class="review-content">
-                                          <h3><a href="#">Olive Oil</a></h3>
-                                          <span>15 may, 2019 at 2:30pm</span>
-                                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at estei to bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
-                                          <ul class="rating">
-                                              <li><i class="fa fa-star"></i></li>
-                                              <li><i class="fa fa-star"></i></li>
-                                              <li><i class="fa fa-star"></i></li>
-                                              <li><i class="fa fa-star"></i></li>
-                                              <li><i class="fa fa-star-half-o"></i></li>
-                                          </ul>
-                                      </div>
-                                  </li>
-                                  <li class="review-items">
-                                      <div class="review-img">
-                                          <img src="assets/images/comment/3.png" alt="">
-                                      </div>
-                                      <div class="review-content">
-                                          <h3><a href="#">Nature Honey</a></h3>
-                                          <span>14 janu, 2019 at 2:30pm</span>
-                                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at estei to bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
-                                          <ul class="rating">
-                                              <li><i class="fa fa-star"></i></li>
-                                              <li><i class="fa fa-star"></i></li>
-                                              <li><i class="fa fa-star"></i></li>
-                                              <li><i class="fa fa-star"></i></li>
-                                              <li><i class="fa fa-star-o"></i></li>
-                                          </ul>
-                                      </div>
-                                  </li>
+                                   @foreach ($reviews as $review)
+                                   <li class="review-items">
+                                    <div class="review-content">
+                                        <h3><a href="#">{{ App\User::find($review->user_id)->name }}</a></h3>
+                                        <span>{{ \Carbon\Carbon::parse($review->created_at)->format('jS M Y') }}</span>
+                                        <p>{{ $review->review }}</p>
+                                        <ul class="rating">
+                                            @if($review->stars == 1)
+                                            <li><i class="fa fa-star"></i></li>    
+                                          @elseif($review->stars == 2)
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                          @elseif($review->stars == 3)
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                          @elseif($review->stars == 4)
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                          @elseif($review->stars == 5)
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                          @endif
+                                        </ul>
+                                    </div>
+                                </li>
+                                   @endforeach
+                               
                               </ul>
                           </div>
+
+                          @auth
+                          @if(\App\Order_item::where('user_id', Auth::id())->where('product_id', $single_products->id)->whereNull('review')->exists())
                           <div class="add-review">
                               <h4>Add A Review</h4>
                               <div class="ratting-wrap">
@@ -241,42 +242,54 @@
                                           <tr>
                                               <td>How Many Stars?</td>
                                               <td>
-                                                  <input type="radio" name="a" />
-                                              </td>
-                                              <td>
-                                                  <input type="radio" name="a" />
-                                              </td>
-                                              <td>
-                                                  <input type="radio" name="a" />
-                                              </td>
-                                              <td>
-                                                  <input type="radio" name="a" />
-                                              </td>
-                                              <td>
-                                                  <input type="radio" name="a" />
-                                              </td>
-                                          </tr>
-                                      </tbody>
-                                  </table>
+                                                <form action="{{ route('add.review') }}" method="post">
+                                                    @csrf
+                                                    <input name="product_id" type="hidden" value="{{ $single_products->id }}">
+                                                    <input type="radio" name="stars" value="1" />
+                                                </td>
+                                                <td>
+                                                    <input type="radio" name="stars" value="2" />
+                                                </td>
+                                                <td>
+                                                    <input type="radio" name="stars" value="3" />
+                                                </td>
+                                                <td>
+                                                    <input type="radio" name="stars" value="4" />
+                                                </td>
+                                                <td>
+                                                    <input type="radio" name="stars" value="5" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                               </div>
                               <div class="row">
                                   <div class="col-md-6 col-12">
                                       <h4>Name:</h4>
-                                      <input type="text" placeholder="Your name here..." />
-                                  </div>
+                                      <input type="text" value={{ Auth::user()->name }} />
+                                    </div>
                                   <div class="col-md-6 col-12">
                                       <h4>Email:</h4>
-                                      <input type="email" placeholder="Your Email here..." />
-                                  </div>
-                                  <div class="col-12">
-                                      <h4>Your Review:</h4>
-                                      <textarea name="massage" id="massage" cols="30" rows="10" placeholder="Your review here..."></textarea>
-                                  </div>
-                                  <div class="col-12">
-                                      <button class="btn-style">Submit</button>
+                                      <input type="email" value="{{ Auth::user()->email }}" />
+                                    </div>
+                                    <div class="col-12">
+                                        <h4>Your Review:</h4>
+                                        <textarea name="review" id="massage" cols="30" rows="10" placeholder="Your review here..."></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn-style">Submit</button>
+                                    </form>
                                   </div>
                               </div>
                           </div>
+                          @else
+                           <h5>Only Customers who bought the product can review the items. Or you may have already reviewed the item</h5>
+                          @endif
+
+                          @else 
+                            Please <a href="{{ url('/login')}}">Login</a> to review this product
+                          @endauth
+
                       </div>
                   </div>
               </div>

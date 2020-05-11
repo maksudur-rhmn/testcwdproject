@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,7 @@ Route::get('/about', 'FrontEndController@about')->name('about');
 Route::get('/front_faq', 'FrontEndController@front_faq')->name('front_faq');
 Route::get('contact', 'FrontEndController@contact')->name('frontend.contact');
 Route::get('/shop', 'FrontEndController@shop')->name('frontend.shop');
+Route::get('search', 'FrontEndController@search');
 
 // END FrontEndController
 
@@ -80,6 +82,9 @@ Route::resource('product', 'ProductController');
 // CustomerController
 
 Route::get('/home/customer', 'CustomerController@index');
+Route::get('/order/{order_id}/pdf', 'CustomerController@downloadPDF')->name('pdf.download');
+Route::get('/send/{order_id}/txt', 'CustomerController@sendtxt')->name('send.txt');
+Route::post('add/review', 'CustomerController@addreview')->name('add.review');
 
 // END CustomerController
 

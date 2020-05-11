@@ -4,11 +4,7 @@
   Checkout
 @endsection
 
-@section('top_script')
-<script
-src="https://www.paypal.com/sdk/js?client-id=AXLaIqYuXOd2KPJ2669lHnCgbBy4QZjtz9aenIaEfurmktJCMlxlokqNbM2_CKktH5P2pjI3AcBUrCwE"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
-</script>
-@endsection
+
 
 @section('content')
   <!-- .breadcumb-area start -->
@@ -181,42 +177,6 @@ src="https://www.paypal.com/sdk/js?client-id=AXLaIqYuXOd2KPJ2669lHnCgbBy4QZjtz9a
       $("#delivery").unbind("click", process_click);
       $("#card").unbind("click", process_click);
    });
-  </script>
-
-<script>
-    paypal.Buttons({
-      createOrder: function(data, actions) {
-        return actions.order.create({
-          purchase_units: [{
-            amount: {
-              value: {{ $total }}
-            }
-          }]
-        });
-      },
-      onApprove: function(data, actions) {
-  
-        // Authorize the transaction
-        actions.order.authorize().then(function(authorization) {
-  
-          // Get the authorization id
-          var authorizationID = authorization.purchase_units[0]
-            .payments.authorizations[0].id
-  
-          // Call your server to validate and capture the transaction
-          return redirect('/here', {
-            method: 'post',
-            headers: {
-              'content-type': 'application/json'
-            },
-            body: JSON.stringify({
-              orderID: data.orderID,
-              authorizationID: authorizationID
-            })
-          });
-        });
-      }
-    }).render('#paypal-button-container');
   </script>
 @endsection
 

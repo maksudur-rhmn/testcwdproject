@@ -48,10 +48,34 @@
     <div class="row">
         <div class="col-md-8 offset-md-2 col-12">
             <div class="search-form">
-                <form action="#">
-                    <input type="text" placeholder="Search Here...">
-                    <button><i class="fa fa-search"></i></button>
-                </form>
+               
+                    <form action="{{ url('search') }}" method="get">
+                       <input type="text" placeholder="Search Here..." name="filter[product_name]">
+                       <select class="form-control" name="filter[category_id]" >
+                           <option value="">All Category</option>
+                           @foreach (App\Category::all() as $category)
+                               <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                           @endforeach
+                       </select>
+                       <select class="form-control" name="sort" >
+                           <option value="product_name">Product :: A-Z</option>
+                           <option value="-product_name">Product :: Z-A</option>
+                       </select>
+                       <button><i class="fa fa-search"></i></button>
+                    </form>
+
+                    <form action="{{ url('search')}}" method="GET">
+                        <input type="text" name="min_price" placeholder="Minimum Price">   //User can input minimum price here
+                        <input type="text" name="max_price" placeholder="Maximum Price">  //User can input maximun price here
+                        <input type="text" name="keyword" placeholder="Search Product" >  // User can input name or description
+                        <select class="form-control" name="category_id" >
+                            <option value="">All Category</option>
+                            @foreach (App\Category::all() as $category)
+                                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                            @endforeach
+                        </select>
+                        <input type="submit" value="Filter">
+                    </form>
             </div>
         </div>
     </div>
@@ -348,54 +372,7 @@
 </div>
 <!-- .footer-area end -->
 <!-- Modal area start -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1">
-<div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <div class="modal-body d-flex">
-            <div class="product-single-img w-50">
-                <img src="assets/images/product/product-details.jpg" alt="">
-            </div>
-            <div class="product-single-content w-50">
-                <h3>Pure Nature Hohey</h3>
-                <div class="rating-wrap fix">
-                    <span class="pull-left">$219.56</span>
-                    <ul class="rating pull-right">
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li>(05 Customar Review)</li>
-                    </ul>
-                </div>
-                <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire denounce with righteous indignation</p>
-                <ul class="input-style">
-                    <li class="quantity cart-plus-minus">
-                        <input type="text" value="1" />
-                    </li>
-                    <li><a href="cart.html">Add to Cart</a></li>
-                </ul>
-                <ul class="cetagory">
-                    <li>Categories:</li>
-                    <li><a href="#">Honey,</a></li>
-                    <li><a href="#">Olive Oil</a></li>
-                </ul>
-                <ul class="socil-icon">
-                    <li>Share :</li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
+
 <!-- Modal area start -->
 <!-- jquery latest version -->
 <script src="{{ asset('frontend_assets/js/vendor/jquery-2.2.4.min.js') }}"></script>

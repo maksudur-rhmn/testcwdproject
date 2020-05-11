@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\Category;
 use App\ProductMultipleImages;
 use Image;
+use App\Order_item;
 
 
 class ProductController extends Controller
@@ -99,9 +100,11 @@ class ProductController extends Controller
      */
     public function show($slug)
     {
+       
        $single_products = Product::where('product_slug', $slug)->first();
+       $reviews = Order_item::where('product_id', $single_products->id)->whereNotNull('review')->get();
        $related_products = Product::where('category_id', $single_products->category_id)->where('id', '!=', $single_products->id)->get();
-       return view('frontend.product_details', compact('single_products', 'related_products'));
+       return view('frontend.product_details', compact('single_products', 'related_products', 'reviews'));
     }
 
     /**
